@@ -41,11 +41,11 @@ public class VistaImpWelcome implements VistaWelcome {
 	DefaultTableModel modelo;
 	private JFrame frmWel;
 	private JPanel contentPane;
-	private JTextField txtNombre;
-	private JTextField txtApellido;
-	private JTextField txtNick;
+	private JTextField txtEmail;
+	private JTextField txtUsu;
+	private JTextField txtPass;
 	private JTable table;
-	private int row;
+	private int row = -1;
 	private Controlador controla;
 	private Modelo model;
 
@@ -66,67 +66,49 @@ public class VistaImpWelcome implements VistaWelcome {
 				TitledBorder.LEADING, TitledBorder.TOP, null,
 				new Color(0, 0, 0)));
 
-		JLabel lblNombre = new JLabel("Nombre:");
+		JLabel lblNombre = new JLabel("Email:");
 
-		JLabel lblApellido = new JLabel("Apellido:");
+		JLabel lblApellido = new JLabel("Usuario:");
 
-		txtNombre = new JTextField();
-		txtNombre.setColumns(10);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
 
-		txtApellido = new JTextField();
-		txtApellido.setColumns(10);
+		txtUsu = new JTextField();
+		txtUsu.setColumns(10);
 
-		JLabel lblNick = new JLabel("Nick:");
+		JLabel lblNick = new JLabel("Password:");
 
-		txtNick = new JTextField();
-		txtNick.setColumns(10);
+		txtPass = new JTextField();
+		txtPass.setColumns(10);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel
 				.createParallelGroup(Alignment.LEADING)
 				.addGroup(
 						gl_panel.createSequentialGroup()
+								.addGap(33)
+								.addGroup(
+										gl_panel.createParallelGroup(
+												Alignment.LEADING)
+												.addComponent(lblApellido)
+												.addComponent(lblNombre)
+												.addComponent(
+														lblNick,
+														GroupLayout.PREFERRED_SIZE,
+														71,
+														GroupLayout.PREFERRED_SIZE))
+								.addGap(18)
 								.addGroup(
 										gl_panel.createParallelGroup(
 												Alignment.LEADING, false)
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addGap(33)
-																.addGroup(
-																		gl_panel.createParallelGroup(
-																				Alignment.LEADING,
-																				false)
-																				.addGroup(
-																						gl_panel.createSequentialGroup()
-																								.addComponent(
-																										lblNombre)
-																								.addPreferredGap(
-																										ComponentPlacement.UNRELATED)
-																								.addComponent(
-																										txtNombre,
-																										GroupLayout.PREFERRED_SIZE,
-																										187,
-																										GroupLayout.PREFERRED_SIZE))
-																				.addGroup(
-																						gl_panel.createSequentialGroup()
-																								.addComponent(
-																										lblApellido)
-																								.addPreferredGap(
-																										ComponentPlacement.UNRELATED)
-																								.addComponent(
-																										txtApellido))))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addGap(50)
-																.addComponent(
-																		lblNick,
-																		GroupLayout.PREFERRED_SIZE,
-																		34,
-																		GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(
-																		ComponentPlacement.UNRELATED)
-																.addComponent(
-																		txtNick)))
-								.addContainerGap(270, Short.MAX_VALUE)));
+												.addComponent(txtPass, 187,
+														187, Short.MAX_VALUE)
+												.addComponent(txtUsu)
+												.addComponent(
+														txtEmail,
+														GroupLayout.PREFERRED_SIZE,
+														399,
+														GroupLayout.PREFERRED_SIZE))
+								.addContainerGap()));
 		gl_panel.setVerticalGroup(gl_panel
 				.createParallelGroup(Alignment.LEADING)
 				.addGroup(
@@ -137,7 +119,7 @@ public class VistaImpWelcome implements VistaWelcome {
 												Alignment.BASELINE)
 												.addComponent(lblNombre)
 												.addComponent(
-														txtNombre,
+														txtEmail,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE))
@@ -147,7 +129,7 @@ public class VistaImpWelcome implements VistaWelcome {
 												Alignment.BASELINE)
 												.addComponent(lblApellido)
 												.addComponent(
-														txtApellido,
+														txtUsu,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE))
@@ -155,12 +137,12 @@ public class VistaImpWelcome implements VistaWelcome {
 								.addGroup(
 										gl_panel.createParallelGroup(
 												Alignment.BASELINE)
+												.addComponent(lblNick)
 												.addComponent(
-														txtNick,
+														txtPass,
 														GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblNick))
+														GroupLayout.PREFERRED_SIZE))
 								.addContainerGap(GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE)));
 		panel.setLayout(gl_panel);
@@ -169,50 +151,69 @@ public class VistaImpWelcome implements VistaWelcome {
 
 		JButton btnNuevo = new JButton("Nuevo");
 		btnNuevo.addActionListener(new ActionListener() {
-
-			public void Limpiar() {
-				txtNombre.setText("");
-				txtApellido.setText("");
-				txtNick.setText("");
-			}
-
+			// no iguales y q distinga mayus de minus
 			public void actionPerformed(ActionEvent e) {
-				String nom = txtNombre.getText();
-				String ape = txtApellido.getText();
-				String nic = txtNick.getText();
-
-				Object datos[] = { nom, ape, nic };
-				modelo.addRow(datos);
-				Limpiar();
+				String email = txtEmail.getText();
+				String usu = txtUsu.getText();
+				String pass = txtPass.getText();
+				if (!email.equals("") && !usu.equals("") && !pass.equals("")) {
+					if (email.contains("@") && email.contains(".")) {
+						Object datos[] = { email, usu, pass };
+						modelo.addRow(datos);
+						model.ConsultaNew(email, usu, pass);
+						Limpiar();
+					}
+				}
 			}
 		});
 
-		String Cabecera[] = { "Nombre", "Apellido", "Nick" };
+		String Cabecera[] = { "Email", "Usuario", "Password" };
 		String Datos[][] = {};
 		modelo = new DefaultTableModel(Datos, Cabecera);
 		frmWel.getComponents();
-
+		// tb falla al modificar si ya hay una linea q la graba en blanco
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String nom = txtNombre.getText();
-				String ape = txtApellido.getText();
-				String nic = txtNick.getText();
 
-				Object datos[] = new Object[3];
-				datos[0] = nom;
-				datos[1] = ape;
-				datos[2] = nic;
-				modelo.setValueAt(datos[0], row, 0);
-				modelo.setValueAt(datos[1], row, 1);
-				modelo.setValueAt(datos[2], row, 2);
+			public void actionPerformed(ActionEvent e) {
+				String email = txtEmail.getText();
+				String usu = txtUsu.getText();
+				String pass = txtPass.getText();
+				if (!email.equals("") && !usu.equals("") && !pass.equals("")) {
+					try {
+						Object datos[] = new Object[3];
+						datos[0] = email;
+						datos[1] = usu;
+						datos[2] = pass;
+						model.ConsultaModi((String) modelo.getValueAt(row, 1),
+								txtEmail.getText(), txtUsu.getText(),
+								txtPass.getText());
+						modelo.setValueAt(datos[0], row, 0);
+						modelo.setValueAt(datos[1], row, 1);
+						modelo.setValueAt(datos[2], row, 2);
+						row = -1;
+					} catch (ArrayIndexOutOfBoundsException err) {
+						err.printStackTrace();
+					}
+				}
+				Limpiar();
 			}
 		});
 
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
-				modelo.removeRow(table.getSelectedRow());
+				try {
+					if (row > -1) {
+						modelo.removeRow(row);
+						model.ConsultaDel(txtUsu.getText());
+						row = -1;
+					}
+				} catch (ArrayIndexOutOfBoundsException err) {
+					err.printStackTrace();
+				}
+				Limpiar();
 			}
 		});
 
@@ -267,36 +268,36 @@ public class VistaImpWelcome implements VistaWelcome {
 														.addGroup(
 																gl_contentPane
 																		.createSequentialGroup()
+																		.addContainerGap()
+																		.addComponent(
+																				panel_2,
+																				GroupLayout.PREFERRED_SIZE,
+																				573,
+																				GroupLayout.PREFERRED_SIZE))
+														.addGroup(
+																gl_contentPane
+																		.createSequentialGroup()
 																		.addGap(12)
 																		.addGroup(
 																				gl_contentPane
 																						.createParallelGroup(
 																								Alignment.LEADING)
 																						.addComponent(
+																								panel,
+																								GroupLayout.PREFERRED_SIZE,
+																								565,
+																								GroupLayout.PREFERRED_SIZE)
+																						.addComponent(
 																								panel_1,
 																								GroupLayout.PREFERRED_SIZE,
 																								GroupLayout.DEFAULT_SIZE,
-																								GroupLayout.PREFERRED_SIZE)
-																						.addComponent(
-																								panel,
-																								GroupLayout.PREFERRED_SIZE,
-																								GroupLayout.DEFAULT_SIZE,
-																								GroupLayout.PREFERRED_SIZE)))
-														.addGroup(
-																gl_contentPane
-																		.createSequentialGroup()
-																		.addContainerGap()
-																		.addComponent(
-																				panel_2,
-																				GroupLayout.PREFERRED_SIZE,
-																				573,
-																				GroupLayout.PREFERRED_SIZE)))
+																								GroupLayout.PREFERRED_SIZE))))
 										.addContainerGap(49, Short.MAX_VALUE)));
 		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
 				Alignment.LEADING).addGroup(
 				gl_contentPane
 						.createSequentialGroup()
-						.addGap(13)
+						.addContainerGap()
 						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 139,
 								GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
@@ -309,14 +310,16 @@ public class VistaImpWelcome implements VistaWelcome {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_2.add(scrollPane);
 		table = new JTable();
+		table.setPreferredScrollableViewportSize(new Dimension(450, 300));
+		table.setSurrendersFocusOnKeystroke(true);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				row = table.getSelectedRow();
 				if (row > -1) {
-					txtNombre.setText((String) modelo.getValueAt(row, 0));
-					txtApellido.setText((String) modelo.getValueAt(row, 1));
-					txtNick.setText((String) modelo.getValueAt(row, 2));
+					txtEmail.setText((String) modelo.getValueAt(row, 0));
+					txtUsu.setText((String) modelo.getValueAt(row, 1));
+					txtPass.setText((String) modelo.getValueAt(row, 2));
 				}
 			}
 		});
@@ -348,4 +351,34 @@ public class VistaImpWelcome implements VistaWelcome {
 		}
 
 	}
+
+	@Override
+	public void cargaTabla(String mail, String usu, String pass) {
+		Object data[] = { mail, usu, pass };
+		modelo.addRow(data);
+
+	}
+
+	public String getMail() {
+		return txtEmail.getText();
+	}
+
+	public String getUsu() {
+		return txtUsu.getText();
+	}
+
+	public String getPass() {
+		return txtPass.getText();
+	}
+
+	private void Limpiar() {
+		txtEmail.setText("");
+		txtUsu.setText("");
+		txtPass.setText("");
+	}
+
+	public void initTable() {
+		controla.cargarTabla();
+	}
+
 }

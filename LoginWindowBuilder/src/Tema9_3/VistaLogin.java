@@ -15,5 +15,7 @@ public interface VistaLogin {
 	public String getPassword();
 
 	public void Visibilidad();
+	
+	public void setError();
 
 }

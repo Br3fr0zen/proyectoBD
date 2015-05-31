@@ -11,4 +11,8 @@ public interface VistaWelcome {
 	public void setModelo(Modelo model);
 
 	public void Visibilidad();
+	
+	public void cargaTabla(String mail, String usu, String pass);
+	
+	public void initTable();
 }

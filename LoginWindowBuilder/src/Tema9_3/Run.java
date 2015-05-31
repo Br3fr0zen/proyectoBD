@@ -1,5 +1,7 @@
 package Tema9_3;
 
+import java.sql.Connection;
+
 /**
  * 
  * @author Javier Bravo, Miguel Ángel y Manuel
@@ -12,10 +14,13 @@ public class Run {
 		VistaWelcome vWel = new VistaImpWelcome();
 		Modelo modelo = new ModeloImp();
 		Controlador controlador = new ControladorImp();
-
+		Connection con  = modelo.getCon();
+		
+		modelo.Conection();
 		modelo.setVista(vLog);
 		modelo.setVistaSign(vSign);
-
+		modelo.setVistaWel(vWel);
+		
 		vLog.setControlador(controlador);
 		vLog.setModelo(modelo);
 
@@ -29,7 +34,9 @@ public class Run {
 		controlador.setVistaLog(vLog);
 		controlador.setVistaSign(vSign);
 		controlador.setVistaWel(vWel);
-
+		
+		vWel.initTable();
 		vLog.Visibilidad();
+		
 	}
 }

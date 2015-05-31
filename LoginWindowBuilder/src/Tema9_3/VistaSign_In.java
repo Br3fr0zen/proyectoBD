@@ -10,5 +10,13 @@ public interface VistaSign_In {
 
 	public void setModelo(Modelo model);
 
+	public String getUser();
+
+	public String getCorreo();
+
+	public String getPassword();
+
+	public String getPasswordRep();
+
 	public void Visibilidad();
 }

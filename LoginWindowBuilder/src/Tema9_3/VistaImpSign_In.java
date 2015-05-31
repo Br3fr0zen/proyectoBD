@@ -41,7 +41,7 @@ public class VistaImpSign_In implements VistaSign_In {
 	private void initialize() {
 		frmSignIn = new JFrame();
 		frmSignIn.setTitle("Sign In");
-		frmSignIn.setBounds(100, 100, 519, 300);
+		frmSignIn.setBounds(100, 100, 519, 321);
 		frmSignIn.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -50,18 +50,14 @@ public class VistaImpSign_In implements VistaSign_In {
 
 		JLabel lblCorreo = new JLabel("Correo:");
 
-		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
+		JLabel lblContrasea = new JLabel("Password:");
 
 		JLabel lblRepetir = new JLabel("Repetir:");
 
 		JButton btnAlta = new JButton("Alta");
 		btnAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (new String(pwdRepet.getPassword()).equals(new String(
-						pwdContra.getPassword()))) {
-
-					controlador.ventanaLoginSign();
-				}
+				controlador.pedirRegis();
 			}
 		});
 
@@ -77,138 +73,68 @@ public class VistaImpSign_In implements VistaSign_In {
 		pwdContra = new JPasswordField();
 
 		pwdRepet = new JPasswordField();
+		
+		JLabel lblUsuarioCorreoContrasea = new JLabel("Usuario, correo, password y repetir son campos obligatorios");
 		GroupLayout groupLayout = new GroupLayout(frmSignIn.getContentPane());
-		groupLayout
-				.setHorizontalGroup(groupLayout
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(
-								groupLayout
-										.createSequentialGroup()
-										.addContainerGap(18, Short.MAX_VALUE)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addGroup(
-																groupLayout
-																		.createSequentialGroup()
-																		.addGroup(
-																				groupLayout
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addComponent(
-																								lblCorreo)
-																						.addComponent(
-																								lblContrasea)
-																						.addComponent(
-																								lblUsuario)
-																						.addComponent(
-																								lblRepetir)
-																						.addComponent(
-																								lblNombre))
-																		.addPreferredGap(
-																				ComponentPlacement.UNRELATED)
-																		.addGroup(
-																				groupLayout
-																						.createParallelGroup(
-																								Alignment.LEADING,
-																								false)
-																						.addComponent(
-																								txtNombre)
-																						.addComponent(
-																								txtCorreo,
-																								312,
-																								312,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								pwdRepet)
-																						.addComponent(
-																								pwdContra,
-																								312,
-																								312,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								txtUsu))
-																		.addContainerGap(
-																				83,
-																				Short.MAX_VALUE))
-														.addGroup(
-																Alignment.TRAILING,
-																groupLayout
-																		.createSequentialGroup()
-																		.addComponent(
-																				btnAlta)
-																		.addGap(28)))));
-		groupLayout
-				.setVerticalGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								groupLayout
-										.createSequentialGroup()
-										.addGap(23)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																txtNombre,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblNombre))
-										.addPreferredGap(
-												ComponentPlacement.UNRELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																txtUsu,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblUsuario))
-										.addPreferredGap(
-												ComponentPlacement.UNRELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																txtCorreo,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblCorreo))
-										.addPreferredGap(
-												ComponentPlacement.UNRELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																pwdContra,
-																GroupLayout.PREFERRED_SIZE,
-																21,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblContrasea))
-										.addPreferredGap(
-												ComponentPlacement.UNRELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																pwdRepet,
-																GroupLayout.PREFERRED_SIZE,
-																23,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																lblRepetir))
-										.addGap(18).addComponent(btnAlta)
-										.addContainerGap(25, Short.MAX_VALUE)));
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(304, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblUsuarioCorreoContrasea)
+							.addContainerGap())
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblCorreo)
+								.addComponent(lblContrasea)
+								.addComponent(lblUsuario)
+								.addComponent(lblRepetir)
+								.addComponent(lblNombre))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(txtNombre)
+										.addComponent(txtCorreo, 312, 312, Short.MAX_VALUE)
+										.addComponent(pwdRepet)
+										.addComponent(pwdContra, 312, 312, Short.MAX_VALUE)
+										.addComponent(txtUsu))
+									.addContainerGap(86, Short.MAX_VALUE))
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addGap(327)
+									.addComponent(btnAlta)
+									.addGap(28))))))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(23)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNombre))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtUsu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblUsuario))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtCorreo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblCorreo))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(pwdContra, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblContrasea))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(pwdRepet, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblRepetir))
+					.addGap(18)
+					.addComponent(btnAlta)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblUsuarioCorreoContrasea)
+					.addContainerGap(88, Short.MAX_VALUE))
+		);
 		frmSignIn.getContentPane().setLayout(groupLayout);
 	}
 
@@ -223,12 +149,27 @@ public class VistaImpSign_In implements VistaSign_In {
 	@Override
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
-
 	}
 
 	@Override
 	public void setModelo(Modelo model) {
 		this.model = model;
 
+	}
+
+	public String getUser() {
+		return txtUsu.getText();
+	}
+
+	public String getCorreo() {
+		return txtCorreo.getText();
+	}
+
+	public String getPassword() {
+		return new String(pwdContra.getPassword());
+	}
+
+	public String getPasswordRep() {
+		return new String(pwdRepet.getPassword());
 	}
 }

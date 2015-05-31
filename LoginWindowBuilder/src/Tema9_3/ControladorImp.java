@@ -10,7 +10,7 @@ public class ControladorImp implements Controlador {
 	private VistaLogin vistaLog;
 	private VistaSign_In vistaSign;
 	private VistaWelcome vistaWel;
-	private String usu, pwd;
+	private String usu, pwd, user, mail, pass, passRep;
 
 	public ControladorImp() {
 		super();
@@ -39,17 +39,28 @@ public class ControladorImp implements Controlador {
 	}
 
 	@Override
-	public boolean pedirLog() {
+	public void pedirLog() {
 		usu = vistaLog.getUser();
 		pwd = vistaLog.getPassword();
 		model.setUserPwd(usu, pwd);
-		return model.Login();
+		if(model.Login()){
+			ventanaLoginWel();
+		}
 
 	}
 
 	@Override
 	public void pedirRegis() {
-
+		user = vistaSign.getUser();
+		mail = vistaSign.getCorreo();
+		pass = vistaSign.getPassword();
+		passRep = vistaSign.getPasswordRep();
+		model.setSign(user, mail, pass, passRep);
+		if(model.Sign()){
+			model.ConsultaSign();
+			ventanaLoginSign();
+		}
+		
 	}
 
 	@Override
@@ -64,5 +75,11 @@ public class ControladorImp implements Controlador {
 		vistaLog.Visibilidad();
 		vistaWel.Visibilidad();
 
+	}
+
+	@Override
+	public void cargarTabla() {
+		model.cargarTabla();
+		
 	}
 }

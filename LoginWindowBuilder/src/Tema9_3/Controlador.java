@@ -14,12 +14,14 @@ public interface Controlador {
 
 	public void setVistaWel(VistaWelcome vistaWel);
 
-	public boolean pedirLog();
+	public void pedirLog();
 
 	public void pedirRegis();
 
 	public void ventanaLoginSign();
 
 	public void ventanaLoginWel();
+	
+	public void cargarTabla();
 
 }
