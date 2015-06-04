@@ -12,14 +12,16 @@ public class Run {
 		VistaLogin vLog = new VistaImpLogin();
 		VistaSign_In vSign = new VistaImpSign_In();
 		VistaWelcome vWel = new VistaImpWelcome();
+		VistaConfiguration vConf = new VistaConfigurationImp();
 		Modelo modelo = new ModeloImp();
 		Controlador controlador = new ControladorImp();
 		Connection con  = modelo.getCon();
 		
-		modelo.Conection();
+		modelo.arrancarINI();
 		modelo.setVista(vLog);
 		modelo.setVistaSign(vSign);
 		modelo.setVistaWel(vWel);
+		modelo.setVistaConf(vConf);
 		
 		vLog.setControlador(controlador);
 		vLog.setModelo(modelo);
@@ -29,11 +31,15 @@ public class Run {
 
 		vWel.setControlador(controlador);
 		vWel.setModelo(modelo);
+		
+		vConf.setControlador(controlador);
+		vConf.setModelo(modelo);
 
 		controlador.setModelo(modelo);
 		controlador.setVistaLog(vLog);
 		controlador.setVistaSign(vSign);
 		controlador.setVistaWel(vWel);
+		controlador.setVistaConf(vConf);
 		
 		vWel.initTable();
 		vLog.Visibilidad();

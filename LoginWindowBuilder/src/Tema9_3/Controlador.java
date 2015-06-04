@@ -13,6 +13,8 @@ public interface Controlador {
 	public void setVistaSign(VistaSign_In vistaSign);
 
 	public void setVistaWel(VistaWelcome vistaWel);
+	
+	public void setVistaConf(VistaConfiguration vistaConf);
 
 	public void pedirLog();
 
@@ -21,6 +23,10 @@ public interface Controlador {
 	public void ventanaLoginSign();
 
 	public void ventanaLoginWel();
+	
+	public void ventanaWelConf();
+	
+	public void ventanaConf();
 	
 	public void cargarTabla();
 

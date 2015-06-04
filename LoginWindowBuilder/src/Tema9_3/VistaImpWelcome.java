@@ -55,6 +55,7 @@ public class VistaImpWelcome implements VistaWelcome {
 
 	public void initialize() {
 		frmWel = new JFrame();
+		frmWel.setTitle("Tabla de contenido");
 		frmWel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWel.setBounds(100, 100, 652, 644);
 		contentPane = new JPanel();
@@ -223,34 +224,42 @@ public class VistaImpWelcome implements VistaWelcome {
 				System.exit(0);
 			}
 		});
+		
+		JButton btnConfiguracion = new JButton("Configuracion");
+		btnConfiguracion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controla.ventanaWelConf();
+			}
+		});
 
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				gl_panel_1.createSequentialGroup().addGap(125)
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(52)
+					.addComponent(btnNuevo)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnModificar)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnEliminar)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnSalir)
+					.addPreferredGap(ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+					.addComponent(btnConfiguracion)
+					.addGap(37))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNuevo)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addComponent(btnModificar)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(btnEliminar).addGap(7)
+						.addComponent(btnEliminar)
 						.addComponent(btnSalir)
-						.addContainerGap(111, Short.MAX_VALUE)));
-		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(
-				Alignment.LEADING)
-				.addGroup(
-						Alignment.TRAILING,
-						gl_panel_1
-								.createSequentialGroup()
-								.addContainerGap(174, Short.MAX_VALUE)
-								.addGroup(
-										gl_panel_1
-												.createParallelGroup(
-														Alignment.BASELINE)
-												.addComponent(btnModificar)
-												.addComponent(btnEliminar)
-												.addComponent(btnSalir)
-												.addComponent(btnNuevo))
-								.addGap(59)));
+						.addComponent(btnConfiguracion))
+					.addGap(59))
+		);
 		panel_1.setLayout(gl_panel_1);
 
 		JPanel panel_2 = new JPanel();

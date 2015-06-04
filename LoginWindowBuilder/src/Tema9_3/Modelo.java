@@ -13,6 +13,8 @@ public interface Modelo {
 	public void setVistaSign(VistaSign_In vistaSign);
 
 	public void setVistaWel(VistaWelcome vistaWel);
+	
+	public void setVistaConf(VistaConfiguration vistaConf);
 
 	public void setUserPwd(String usuario, String password);
 
@@ -23,8 +25,6 @@ public interface Modelo {
 	public void setSign(String user, String email, String pass, String passRep);
 	
 	public Connection getCon();
-	
-	public void Conection();
 
 	public void ConsultaSign();
 	
@@ -35,4 +35,6 @@ public interface Modelo {
 	public void ConsultaDel(String usu);
 	
 	public void ConsultaModi(String usu,String email, String usuario, String password);
+	
+	public void arrancarINI();
 }

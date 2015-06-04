@@ -10,6 +10,7 @@ public class ControladorImp implements Controlador {
 	private VistaLogin vistaLog;
 	private VistaSign_In vistaSign;
 	private VistaWelcome vistaWel;
+	private VistaConfiguration vistaConf;
 	private String usu, pwd, user, mail, pass, passRep;
 
 	public ControladorImp() {
@@ -36,6 +37,9 @@ public class ControladorImp implements Controlador {
 	public void setVistaWel(VistaWelcome vistaWel) {
 		this.vistaWel = vistaWel;
 
+	}
+	public void setVistaConf(VistaConfiguration vistaConf) {
+		this.vistaConf = vistaConf;
 	}
 
 	@Override
@@ -76,10 +80,23 @@ public class ControladorImp implements Controlador {
 		vistaWel.Visibilidad();
 
 	}
+	
+	public void ventanaConf() {
+		vistaLog.Visibilidad();
+		vistaWel.Visibilidad();
+
+	}
 
 	@Override
 	public void cargarTabla() {
 		model.cargarTabla();
+		
+	}
+
+	@Override
+	public void ventanaWelConf() {
+		vistaWel.Visibilidad();
+		vistaConf.Visibilidad();
 		
 	}
 }

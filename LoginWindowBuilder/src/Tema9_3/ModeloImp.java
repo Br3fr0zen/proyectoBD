@@ -1,6 +1,11 @@
 package Tema9_3;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.Properties;
 
 /**
  * 
@@ -11,19 +16,17 @@ public class ModeloImp implements Modelo {
 	private VistaLogin vistaLog;
 	private VistaSign_In vistaSign;
 	private VistaWelcome vistaWel;
-	private String usuario, email, password, passRep;
+	private VistaConfiguration vistaConf;
+	private String usuario, email, password, passRep, url;
 	private Connection conexion;
 
-	public void Conection() {
+	public void Conection(String url, String usuario, String password) {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@localhost:1521:XE";
-			String pwd = "root";
-			String usr = "SYSTEM";
-			conexion = DriverManager.getConnection(url, usr, pwd);
+			conexion = DriverManager.getConnection(url, usuario, password);
 			System.out
 					.println("- Conexión a ORACLE establecida - , Bienvenido "
-							+ usr);
+							+ usuario);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -38,14 +41,15 @@ public class ModeloImp implements Modelo {
 	public void setCon(Connection con) {
 		this.conexion = con;
 	}
-	
+
 	public void cargarTabla() {
 		String query = "SELECT * FROM BRAVO.USUARIO";
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(query);
 			ResultSet resul = pstmt.executeQuery();
 			while (resul.next())
-				vistaWel.cargaTabla(resul.getString(1),resul.getString(2),resul.getString(3));
+				vistaWel.cargaTabla(resul.getString(1), resul.getString(2),
+						resul.getString(3));
 		} catch (SQLException s) {
 			s.printStackTrace();
 		}
@@ -78,7 +82,7 @@ public class ModeloImp implements Modelo {
 		}
 	}
 
-	public void ConsultaNew(String mail, String nick ,String pass) {
+	public void ConsultaNew(String mail, String nick, String pass) {
 		String query = "INSERT INTO BRAVO.USUARIO VALUES(?,?,?)";
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(query);
@@ -91,14 +95,15 @@ public class ModeloImp implements Modelo {
 		}
 	}
 
-	public void ConsultaModi(String usu,String email, String usuario, String password) {
+	public void ConsultaModi(String usu, String email, String usuario,
+			String password) {
 		String query = "UPDATE BRAVO.USUARIO SET CORREO = ?, USUARIO = ? , PASSWORD = ? WHERE USUARIO = ?";
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(query);
 			pstmt.setString(1, email);
 			pstmt.setString(2, usuario);
 			pstmt.setString(3, password);
-			pstmt.setString(4,usu);
+			pstmt.setString(4, usu);
 			ResultSet resul = pstmt.executeQuery();
 		} catch (SQLException s) {
 			s.printStackTrace();
@@ -130,6 +135,10 @@ public class ModeloImp implements Modelo {
 	public void setVistaWel(VistaWelcome vistaWel) {
 		this.vistaWel = vistaWel;
 	}
+	
+	public void setVistaConf(VistaConfiguration vistaConf) {
+		this.vistaConf = vistaConf;
+	}
 
 	@Override
 	public void setUserPwd(String usuario, String password) {
@@ -150,8 +159,8 @@ public class ModeloImp implements Modelo {
 			return true;
 		} else
 			vistaLog.setError();
-			return false;
-		 
+		return false;
+
 	}
 
 	@Override
@@ -170,6 +179,33 @@ public class ModeloImp implements Modelo {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	public void arrancarINI() {
+		Properties propiedades = new Properties();
+		InputStream entrada = null;
+		try {
+			File miFichero = new File("src/Tema9_3/configuracion.ini");
+			if (miFichero.exists()) {
+				entrada = new FileInputStream(miFichero);
+				propiedades.load(entrada);
+				String url = propiedades.getProperty("url");
+				String password = propiedades.getProperty("password");
+				String usuario = propiedades.getProperty("usuario");
+				this.Conection(url, usuario, password);
+			} else
+				System.err.println("Fichero no encontrado");
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (entrada != null) {
+				try {
+					entrada.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
