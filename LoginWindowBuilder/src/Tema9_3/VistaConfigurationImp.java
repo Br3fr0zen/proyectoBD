@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.util.Properties;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.SystemColor;
 
 public class VistaConfigurationImp implements VistaConfiguration {
 	private JFrame frmConf;
@@ -45,13 +46,15 @@ public class VistaConfigurationImp implements VistaConfiguration {
 	// public VistaConfigurationImp() {
 	public void initialize() {
 		frmConf = new JFrame();
-		frmConf.setTitle("Configuraci\u00F3n");
+		frmConf.setTitle("Configuracion");
 		frmConf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmConf.setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.control);
 		frmConf.setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.control);
 		panel.setBorder(new TitledBorder(UIManager
 				.getBorder("TitledBorder.border"), "Configuración INI",
 				TitledBorder.LEADING, TitledBorder.TOP, null,
@@ -124,6 +127,7 @@ public class VistaConfigurationImp implements VistaConfiguration {
 
 		txtUrl = new JTextField();
 		txtUrl.setColumns(10);
+		
 
 		txtUsu = new JTextField();
 		txtUsu.setColumns(10);
@@ -234,4 +238,5 @@ public class VistaConfigurationImp implements VistaConfiguration {
 		this.model = model;
 		
 	}
+
 }

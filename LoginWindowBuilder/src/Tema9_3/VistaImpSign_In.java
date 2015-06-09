@@ -16,6 +16,8 @@ import javax.swing.JPasswordField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class VistaImpSign_In implements VistaSign_In {
 
@@ -40,6 +42,7 @@ public class VistaImpSign_In implements VistaSign_In {
 	 */
 	private void initialize() {
 		frmSignIn = new JFrame();
+		frmSignIn.getContentPane().setBackground(SystemColor.control);
 		frmSignIn.setTitle("Sign In");
 		frmSignIn.setBounds(100, 100, 519, 321);
 		frmSignIn.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +55,7 @@ public class VistaImpSign_In implements VistaSign_In {
 
 		JLabel lblContrasea = new JLabel("Password:");
 
-		JLabel lblRepetir = new JLabel("Repetir:");
+		JLabel lblRepetir = new JLabel("Repetir password:");
 
 		JButton btnAlta = new JButton("Alta");
 		btnAlta.addActionListener(new ActionListener() {
@@ -79,11 +82,8 @@ public class VistaImpSign_In implements VistaSign_In {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(304, Short.MAX_VALUE)
+					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblUsuarioCorreoContrasea)
-							.addContainerGap())
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblCorreo)
@@ -91,20 +91,16 @@ public class VistaImpSign_In implements VistaSign_In {
 								.addComponent(lblUsuario)
 								.addComponent(lblRepetir)
 								.addComponent(lblNombre))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(txtNombre)
-										.addComponent(txtCorreo, 312, 312, Short.MAX_VALUE)
-										.addComponent(pwdRepet)
-										.addComponent(pwdContra, 312, 312, Short.MAX_VALUE)
-										.addComponent(txtUsu))
-									.addContainerGap(86, Short.MAX_VALUE))
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-									.addGap(327)
-									.addComponent(btnAlta)
-									.addGap(28))))))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(txtNombre)
+								.addComponent(txtCorreo, 312, 312, Short.MAX_VALUE)
+								.addComponent(pwdRepet)
+								.addComponent(pwdContra, 312, 312, Short.MAX_VALUE)
+								.addComponent(txtUsu)
+								.addComponent(btnAlta, Alignment.TRAILING)))
+						.addComponent(lblUsuarioCorreoContrasea))
+					.addContainerGap(60, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -129,11 +125,15 @@ public class VistaImpSign_In implements VistaSign_In {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(pwdRepet, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblRepetir))
-					.addGap(18)
-					.addComponent(btnAlta)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblUsuarioCorreoContrasea)
-					.addContainerGap(88, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(btnAlta)
+							.addContainerGap(46, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblUsuarioCorreoContrasea)
+							.addGap(32))))
 		);
 		frmSignIn.getContentPane().setLayout(groupLayout);
 	}

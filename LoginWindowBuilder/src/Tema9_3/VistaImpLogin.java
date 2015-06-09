@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.awt.Color;
+import java.awt.SystemColor;
 
 public class VistaImpLogin implements VistaLogin {
 
@@ -40,6 +41,7 @@ public class VistaImpLogin implements VistaLogin {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
+		frmLogin.getContentPane().setBackground(SystemColor.control);
 		frmLogin.setTitle("Login");
 		frmLogin.setBounds(100, 100, 435, 303);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,39 +83,42 @@ public class VistaImpLogin implements VistaLogin {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(69)
-							.addComponent(lblUsuario)
-							.addGap(12)
-							.addComponent(txtUsu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(47)
-							.addComponent(lblContrasea)
-							.addGap(12)
-							.addComponent(pwdField, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(67)
 							.addComponent(lblUsuarioYoContra)
 							.addGap(56)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnEntrar)
-								.addComponent(btnRegistro))))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnEntrar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnRegistro, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(47)
+								.addComponent(lblContrasea)
+								.addGap(12)
+								.addComponent(pwdField))
+							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+								.addGap(69)
+								.addComponent(lblUsuario)
+								.addGap(12)
+								.addComponent(txtUsu, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE))))
 					.addGap(160))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(57)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
+							.addGap(60)
 							.addComponent(lblUsuario))
-						.addComponent(txtUsu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(57)
+							.addComponent(txtUsu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
+							.addGap(21)
 							.addComponent(lblContrasea))
-						.addComponent(pwdField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(pwdField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(53)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnEntrar)

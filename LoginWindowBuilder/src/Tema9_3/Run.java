@@ -41,7 +41,6 @@ public class Run {
 		controlador.setVistaWel(vWel);
 		controlador.setVistaConf(vConf);
 		
-		vWel.initTable();
 		vLog.Visibilidad();
 		
 	}

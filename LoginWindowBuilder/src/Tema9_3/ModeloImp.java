@@ -82,13 +82,13 @@ public class ModeloImp implements Modelo {
 		}
 	}
 
-	public void ConsultaNew(String mail, String nick, String pass) {
+	public void ConsultaNew(String email, String usuario, String password) {
 		String query = "INSERT INTO BRAVO.USUARIO VALUES(?,?,?)";
 		try {
 			PreparedStatement pstmt = conexion.prepareStatement(query);
-			pstmt.setString(1, mail);
-			pstmt.setString(2, nick);
-			pstmt.setString(3, pass);
+			pstmt.setString(1, email);
+			pstmt.setString(2, usuario);
+			pstmt.setString(3, password);
 			ResultSet resul = pstmt.executeQuery();
 		} catch (SQLException s) {
 			s.printStackTrace();
@@ -155,7 +155,7 @@ public class ModeloImp implements Modelo {
 
 	@Override
 	public boolean Login() {
-		if (this.ConsultaUsu(usuario).equals(password)) {
+		if (this.ConsultaUsu(usuario).equals(password) && !usuario.equals("") && !password.equals("")) {
 			return true;
 		} else
 			vistaLog.setError();

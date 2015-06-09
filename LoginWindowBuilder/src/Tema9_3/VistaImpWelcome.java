@@ -36,6 +36,7 @@ import javax.swing.JScrollPane;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
 
 public class VistaImpWelcome implements VistaWelcome {
 	DefaultTableModel modelo;
@@ -59,9 +60,11 @@ public class VistaImpWelcome implements VistaWelcome {
 		frmWel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWel.setBounds(100, 100, 652, 644);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.control);
 		frmWel.setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.control);
 		panel.setBorder(new TitledBorder(UIManager
 				.getBorder("TitledBorder.border"), "Datos del usuario",
 				TitledBorder.LEADING, TitledBorder.TOP, null,
@@ -82,82 +85,59 @@ public class VistaImpWelcome implements VistaWelcome {
 		txtPass = new JTextField();
 		txtPass.setColumns(10);
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel
-				.createParallelGroup(Alignment.LEADING)
-				.addGroup(
-						gl_panel.createSequentialGroup()
-								.addGap(33)
-								.addGroup(
-										gl_panel.createParallelGroup(
-												Alignment.LEADING)
-												.addComponent(lblApellido)
-												.addComponent(lblNombre)
-												.addComponent(
-														lblNick,
-														GroupLayout.PREFERRED_SIZE,
-														71,
-														GroupLayout.PREFERRED_SIZE))
-								.addGap(18)
-								.addGroup(
-										gl_panel.createParallelGroup(
-												Alignment.LEADING, false)
-												.addComponent(txtPass, 187,
-														187, Short.MAX_VALUE)
-												.addComponent(txtUsu)
-												.addComponent(
-														txtEmail,
-														GroupLayout.PREFERRED_SIZE,
-														399,
-														GroupLayout.PREFERRED_SIZE))
-								.addContainerGap()));
-		gl_panel.setVerticalGroup(gl_panel
-				.createParallelGroup(Alignment.LEADING)
-				.addGroup(
-						gl_panel.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(
-										gl_panel.createParallelGroup(
-												Alignment.BASELINE)
-												.addComponent(lblNombre)
-												.addComponent(
-														txtEmail,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(
-										gl_panel.createParallelGroup(
-												Alignment.BASELINE)
-												.addComponent(lblApellido)
-												.addComponent(
-														txtUsu,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE))
-								.addGap(18)
-								.addGroup(
-										gl_panel.createParallelGroup(
-												Alignment.BASELINE)
-												.addComponent(lblNick)
-												.addComponent(
-														txtPass,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE))
-								.addContainerGap(GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblApellido)
+						.addComponent(lblNombre)
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(lblNick, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGap(31)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(txtPass, 187, 187, Short.MAX_VALUE)
+						.addComponent(txtUsu)
+						.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 399, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNombre)
+						.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblApellido)
+						.addComponent(txtUsu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNick)
+						.addComponent(txtPass, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
 		panel.setLayout(gl_panel);
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.control);
 
 		JButton btnNuevo = new JButton("Nuevo");
 		btnNuevo.addActionListener(new ActionListener() {
 			// no iguales y q distinga mayus de minus
 			public void actionPerformed(ActionEvent e) {
+				Limpiar();
 				String email = txtEmail.getText();
 				String usu = txtUsu.getText();
 				String pass = txtPass.getText();
-				if (!email.equals("") && !usu.equals("") && !pass.equals("")) {
+				boolean existe = false;
+				for (int i = 0; i < table.getRowCount(); i++) {
+					if (txtUsu.getText().equals(modelo.getValueAt(i, 1)))
+						existe = true;
+				}
+				if (!email.equals("") && !usu.equals("") && !pass.equals("") && !existe) {
 					if (email.contains("@") && email.contains(".")) {
 						Object datos[] = { email, usu, pass };
 						modelo.addRow(datos);
@@ -263,6 +243,7 @@ public class VistaImpWelcome implements VistaWelcome {
 		panel_1.setLayout(gl_panel_1);
 
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.control);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane
 				.setHorizontalGroup(gl_contentPane
@@ -353,6 +334,7 @@ public class VistaImpWelcome implements VistaWelcome {
 
 	@Override
 	public void Visibilidad() {
+		initTable();
 		if (frmWel.isVisible()) {
 			frmWel.setVisible(false);
 		} else {
